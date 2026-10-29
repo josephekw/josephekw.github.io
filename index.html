@@ -1,198 +1,253 @@
 <!DOCTYPE html>
-<html lang="en" class="light">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minimal</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        black: '#000000',
-                        white: '#ffffff',
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    <style>
-        /* Lock viewport to prevent scrolling */
-        html, body {
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-            margin: 0;
-            padding: 0;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Joseph Park</title>
+  <style>
+    /* CSS Variables for Light Mode (Default) and Dark Mode */
+    :root {
+      --bg-color: #FDFBF7;        /* Cozy Off-White Light Mode */
+      --text-color: #1A1A1A;      /* Soft Charcoal Text */
+      --icon-color: #1A1A1A;
+      --link-color: #00356B;      /* Deep Yale Blue for Light Mode */
+      --transition-speed: 0.3s;
+    }
 
-        /* Strict monochrome transitions */
-        * {
-            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, opacity 0.3s ease;
-        }
+    [data-theme="dark"] {
+      --bg-color: #000000;        /* Pure OLED Black Dark Mode */
+      --text-color: #FFFFFF;      /* Crisp White Text */
+      --icon-color: #FFFFFF;
+      --link-color: #D9D2E9;      /* Light Lavender for Dark Mode */
+    }
 
-        .mono-card {
-            background: rgba(255, 255, 255, 0.8);
-            border: 1px dashed #d1d5db;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        .dark .mono-card {
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px dashed #374151;
-        }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Times New Roman', Times, serif;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden; /* Strict no-scroll one-page layout */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 3rem 4rem;
+      transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+    }
 
-        .mono-card-has-image {
-            border-style: solid !important;
-            border-color: #e5e7eb !important;
-        }
+    /* Header Styling */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 100%;
+    }
 
-        .dark .mono-card-has-image {
-            border-color: #1f2937 !important;
-        }
-    </style>
+    h1.name-title {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    /* Minimalist Theme Toggle Button (No Background Circle) */
+    .theme-toggle {
+      background: none;
+      border: none;
+      outline: none;
+      box-shadow: none;
+      color: var(--text-color);
+      cursor: pointer;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 1.2rem;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.2s ease;
+    }
+
+    .theme-toggle:hover {
+      opacity: 0.6;
+    }
+
+    .theme-toggle svg {
+      width: 22px;
+      height: 22px;
+      fill: var(--icon-color);
+    }
+
+    /* Main Content Area */
+    main {
+      max-width: 680px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Reserved Image Spacer Block */
+    .image-spacer {
+      height: 140px;
+      width: 100%;
+      margin-bottom: 2rem;
+    }
+
+    /* Bio Section Styling */
+    .bio {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 1.15rem;
+      line-height: 1.65;
+      text-align: left;
+    }
+
+    .bio p {
+      margin-bottom: 1rem;
+    }
+
+    .bio p.no-indent {
+      text-indent: 0;
+      margin-bottom: 0;
+    }
+
+    /* In-line Bio Links (Bold & Underlined) */
+    .bio-link {
+      color: var(--link-color);
+      text-decoration: underline;
+      font-weight: bold;
+      transition: color var(--transition-speed) ease, opacity 0.2s ease;
+    }
+
+    .bio-link:hover {
+      opacity: 0.8;
+    }
+
+    /* Footer & Social Links */
+    footer {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 1.5rem;
+      width: 100%;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-color);
+      text-decoration: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .social-link:hover {
+      opacity: 0.6;
+      transform: translateY(-2px);
+    }
+
+    .social-icon {
+      width: 24px;
+      height: 24px;
+      fill: var(--icon-color);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      body {
+        padding: 2rem;
+      }
+
+      h1.name-title {
+        font-size: 2.2rem;
+      }
+
+      .bio {
+        font-size: 1.05rem;
+      }
+
+      .image-spacer {
+        height: 90px;
+        margin-bottom: 1.5rem;
+      }
+    }
+  </style>
 </head>
-<body class="bg-white dark:bg-black text-black dark:text-white h-screen w-screen flex flex-col justify-between p-6 sm:p-10 font-sans antialiased select-none">
+<body>
 
-    <!-- Header Bar with Minimalist Dark Mode Toggle -->
-    <header class="w-full max-w-3xl mx-auto flex justify-between items-center">
-        <span class="text-xs uppercase tracking-widest text-neutral-400 dark:text-neutral-600 font-mono">
-            01
-        </span>
+  <!-- Top Header -->
+  <header>
+    <h1 class="name-title">Joseph Park</h1>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <!-- Moon Icon (for Light Mode default) -->
+      <svg id="themeIcon" viewBox="0 0 24 24">
+        <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-5.4-5.4c0-1.81.89-3.42 2.26-4.4C12.92 3.04 12.46 3 12 3z"/>
+      </svg>
+    </button>
+  </header>
 
-        <!-- Light / Dark Mode Toggle Button -->
-        <button id="themeToggle" class="p-2.5 rounded-full border border-neutral-200 dark:border-neutral-800 text-black dark:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-all" aria-label="Toggle Theme">
-            <!-- Sun Icon -->
-            <svg id="sunIcon" class="w-4 h-4 hidden dark:block text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-            </svg>
-            <!-- Moon Icon -->
-            <svg id="moonIcon" class="w-4 h-4 block dark:hidden text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-            </svg>
-        </button>
-    </header>
+  <!-- Main Body Content -->
+  <main>
+    <!-- Reserved space for future image -->
+    <div class="image-spacer"></div>
 
-    <!-- Center Content Block -->
-    <main class="flex-1 w-full max-w-xl mx-auto flex flex-col items-center justify-center text-center space-y-8">
-        
-        <!-- Big Minimalist Title -->
-        <h1 class="font-serif text-5xl sm:text-7xl font-normal tracking-tight text-black dark:text-white leading-none">
-            Welcome
-        </h1>
+    <!-- Bio Paragraphs -->
+    <div class="bio">
+      <p>I’m currently attending <a href="https://seckingerhs.gcpsk12.org/" target="_blank" rel="noopener noreferrer" class="bio-link">Seckinger High School</a> (Junior 11), conducting research at the <a href="https://pgsl.eas.gatech.edu/" target="_blank" rel="noopener noreferrer" class="bio-link">PGSL Lab</a> in machine learning while taking mathematics courses at the Georgia Institute of Technology. Previously, I worked as an Aerospace Engineering Intern at Georgia Tech (S26).</p>
+      <p class="no-indent">When I'm not busy with school or research, I enjoy listening to music, collecting pokemon cards, exploring new places, and trying new things.</p>
+    </div>
+  </main>
 
-        <!-- Custom Image Container (Click or Drag-and-Drop to upload your own picture) -->
-        <div id="dropZone" class="mono-card w-48 h-48 sm:w-64 sm:h-64 rounded-2xl flex flex-col items-center justify-center relative overflow-hidden cursor-pointer group hover:border-neutral-400 dark:hover:border-neutral-600 transition-all">
-            <!-- Upload Prompt (Hidden once an image is uploaded) -->
-            <div id="uploadPrompt" class="flex flex-col items-center justify-center p-4 space-y-2 text-neutral-400 dark:text-neutral-600 group-hover:text-neutral-600 dark:group-hover:text-neutral-400">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 4v16m8-8H4"></path>
-                </svg>
-                <span class="text-xs tracking-wider uppercase font-mono">Add Image</span>
-            </div>
+  <!-- Footer with SVG Icons -->
+  <footer>
+    <!-- Official LinkedIn Icon -->
+    <a href="https://www.linkedin.com/in/joseph-park-2a15843ab/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
+      <svg class="social-icon" viewBox="0 0 24 24">
+        <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.72a1.47 1.47 0 1 0 0 2.94 1.47 1.47 0 0 0 0-2.94z"/>
+      </svg>
+    </a>
 
-            <!-- Display Uploaded Image -->
-            <img id="userImage" class="absolute inset-0 w-full h-full object-cover hidden" alt="Custom Image" />
+    <!-- Email Icon -->
+    <a href="mailto:josephseojunpark@gmail.com" class="social-link" aria-label="Email">
+      <svg class="social-icon" viewBox="0 0 24 24">
+        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+      </svg>
+    </a>
+  </footer>
 
-            <!-- Hidden File Input -->
-            <input type="file" id="fileInput" accept="image/*" class="hidden" />
-        </div>
+  <!-- Theme Switching Script -->
+  <script>
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
 
-    </main>
+    // Default to light mode
+    let currentTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    updateIcon(currentTheme);
 
-    <!-- Minimal Monochrome Footer -->
-    <footer class="w-full text-center text-xs text-neutral-400 dark:text-neutral-700 font-mono tracking-widest uppercase">
-        Monochrome
-    </footer>
+    themeToggleBtn.addEventListener('click', () => {
+      currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', currentTheme);
+      localStorage.setItem('theme', currentTheme);
+      updateIcon(currentTheme);
+    });
 
-    <!-- JavaScript Logic -->
-    <script>
-        const themeToggleBtn = document.getElementById('themeToggle');
-        const dropZone = document.getElementById('dropZone');
-        const fileInput = document.getElementById('fileInput');
-        const userImage = document.getElementById('userImage');
-        const uploadPrompt = document.getElementById('uploadPrompt');
-
-        // Theme Toggle Logic
-        function applyTheme(isDark) {
-            if (isDark) {
-                document.documentElement.classList.add('dark');
-                document.documentElement.classList.remove('light');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-                document.documentElement.classList.add('light');
-                localStorage.setItem('theme', 'light');
-            }
-        }
-
-        const savedTheme = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        applyTheme(savedTheme === 'dark' || (!savedTheme && prefersDark));
-
-        themeToggleBtn.addEventListener('click', () => {
-            const isDark = document.documentElement.classList.contains('dark');
-            applyTheme(!isDark);
-        });
-
-        // Image Handling Logic (Local storage + file picker / drag & drop)
-        function setImageSrc(src) {
-            if (src) {
-                userImage.src = src;
-                userImage.classList.remove('hidden');
-                uploadPrompt.classList.add('hidden');
-                dropZone.classList.add('mono-card-has-image');
-                localStorage.setItem('user_custom_image', src);
-            }
-        }
-
-        // Load saved image from localStorage on start
-        const savedImage = localStorage.getItem('user_custom_image');
-        if (savedImage) {
-            setImageSrc(savedImage);
-        }
-
-        dropZone.addEventListener('click', () => fileInput.click());
-
-        fileInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (event) => setImageSrc(event.target.result);
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // Drag and Drop
-        dropZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropZone.classList.add('border-black', 'dark:border-white');
-        });
-
-        dropZone.addEventListener('dragleave', () => {
-            dropZone.classList.remove('border-black', 'dark:border-white');
-        });
-
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropZone.classList.remove('border-black', 'dark:border-white');
-            const file = e.dataTransfer.files[0];
-            if (file && file.type.startsWith('image/')) {
-                const reader = new FileReader();
-                reader.onload = (event) => setImageSrc(event.target.result);
-                reader.readAsDataURL(file);
-            }
-        });
-    </script>
+    function updateIcon(theme) {
+      if (theme === 'dark') {
+        // Sun Icon for Dark Mode
+        themeIcon.innerHTML = '<path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a.996.996 0 0 0-1.41 0 .996.996 0 0 0 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37a.996.996 0 0 0-1.41 0 .996.996 0 0 0 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-12.37a.996.996 0 0 0 0-1.41.996.996 0 0 0-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36a.996.996 0 0 0 0-1.41.996.996 0 0 0-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>';
+      } else {
+        // Moon Icon for Light Mode
+        themeIcon.innerHTML = '<path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-5.4-5.4c0-1.81.89-3.42 2.26-4.4C12.92 3.04 12.46 3 12 3z"/>';
+      }
+    }
+  </script>
 </body>
 </html>
