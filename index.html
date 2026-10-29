@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimal</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        black: '#000000',
+                        white: '#ffffff',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        /* Lock viewport to prevent scrolling */
+        html, body {
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Strict monochrome transitions */
+        * {
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, opacity 0.3s ease;
+        }
+
+        .mono-card {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px dashed #d1d5db;
+        }
+
+        .dark .mono-card {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px dashed #374151;
+        }
+
+        .mono-card-has-image {
+            border-style: solid !important;
+            border-color: #e5e7eb !important;
+        }
+
+        .dark .mono-card-has-image {
+            border-color: #1f2937 !important;
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-black text-black dark:text-white h-screen w-screen flex flex-col justify-between p-6 sm:p-10 font-sans antialiased select-none">
+
+    <!-- Header Bar with Minimalist Dark Mode Toggle -->
+    <header class="w-full max-w-3xl mx-auto flex justify-between items-center">
+        <span class="text-xs uppercase tracking-widest text-neutral-400 dark:text-neutral-600 font-mono">
+            01
+        </span>
+
+        <!-- Light / Dark Mode Toggle Button -->
+        <button id="themeToggle" class="p-2.5 rounded-full border border-neutral-200 dark:border-neutral-800 text-black dark:text-white hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-all" aria-label="Toggle Theme">
+            <!-- Sun Icon -->
+            <svg id="sunIcon" class="w-4 h-4 hidden dark:block text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+            <!-- Moon Icon -->
+            <svg id="moonIcon" class="w-4 h-4 block dark:hidden text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            </svg>
+        </button>
+    </header>
+
+    <!-- Center Content Block -->
+    <main class="flex-1 w-full max-w-xl mx-auto flex flex-col items-center justify-center text-center space-y-8">
+        
+        <!-- Big Minimalist Title -->
+        <h1 class="font-serif text-5xl sm:text-7xl font-normal tracking-tight text-black dark:text-white leading-none">
+            Welcome
+        </h1>
+
+        <!-- Custom Image Container (Click or Drag-and-Drop to upload your own picture) -->
+        <div id="dropZone" class="mono-card w-48 h-48 sm:w-64 sm:h-64 rounded-2xl flex flex-col items-center justify-center relative overflow-hidden cursor-pointer group hover:border-neutral-400 dark:hover:border-neutral-600 transition-all">
+            <!-- Upload Prompt (Hidden once an image is uploaded) -->
+            <div id="uploadPrompt" class="flex flex-col items-center justify-center p-4 space-y-2 text-neutral-400 dark:text-neutral-600 group-hover:text-neutral-600 dark:group-hover:text-neutral-400">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 4v16m8-8H4"></path>
+                </svg>
+                <span class="text-xs tracking-wider uppercase font-mono">Add Image</span>
+            </div>
+
+            <!-- Display Uploaded Image -->
+            <img id="userImage" class="absolute inset-0 w-full h-full object-cover hidden" alt="Custom Image" />
+
+            <!-- Hidden File Input -->
+            <input type="file" id="fileInput" accept="image/*" class="hidden" />
+        </div>
+
+    </main>
+
+    <!-- Minimal Monochrome Footer -->
+    <footer class="w-full text-center text-xs text-neutral-400 dark:text-neutral-700 font-mono tracking-widest uppercase">
+        Monochrome
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const userImage = document.getElementById('userImage');
+        const uploadPrompt = document.getElementById('uploadPrompt');
+
+        // Theme Toggle Logic
+        function applyTheme(isDark) {
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+                document.documentElement.classList.remove('light');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.documentElement.classList.add('light');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        applyTheme(savedTheme === 'dark' || (!savedTheme && prefersDark));
+
+        themeToggleBtn.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            applyTheme(!isDark);
+        });
+
+        // Image Handling Logic (Local storage + file picker / drag & drop)
+        function setImageSrc(src) {
+            if (src) {
+                userImage.src = src;
+                userImage.classList.remove('hidden');
+                uploadPrompt.classList.add('hidden');
+                dropZone.classList.add('mono-card-has-image');
+                localStorage.setItem('user_custom_image', src);
+            }
+        }
+
+        // Load saved image from localStorage on start
+        const savedImage = localStorage.getItem('user_custom_image');
+        if (savedImage) {
+            setImageSrc(savedImage);
+        }
+
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => setImageSrc(event.target.result);
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Drag and Drop
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-black', 'dark:border-white');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('border-black', 'dark:border-white');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('border-black', 'dark:border-white');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (event) => setImageSrc(event.target.result);
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
