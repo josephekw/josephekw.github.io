@@ -1,1 +1,175 @@
+/* CSS Variables for Light Mode (Default) and Dark Mode */
+:root {
+  --bg-color: #FFFFFF;        /* Cozy Off-White Light Mode */
+  --text-color: #1A1A1A;      /* Soft Charcoal Text */
+  --icon-color: #000000;      /* Light Mode Icons/Toggle */
+  --link-color: #00356B;      /* Default Light Mode Link Color */
+  --bio-text-color: #444444;  /* Light Mode Bio Text Color */
+  --footer-link-color: #444444; /* Black for LinkedIn and Email in Light Mode */
+  --placeholder-color: #bcbcbc;
+  --transition-speed: 0.3s;
+}
 
+[data-theme="dark"] {
+  --bg-color: #0b0e12;        /* Pure OLED Black Dark Mode */
+  --text-color: #d9dfe2;      /* Crisp White Text */
+  --icon-color: #bcbcbc;      /* Dark Mode Toggle Icon */
+  --link-color: #00356B;      /* Dark Mode Link Highlight Color */
+  --bio-text-color: #eeeeee;  /* Dark Mode Bio Text Color */
+  --footer-link-color: #bcbcbc; /* #bcbcbc for LinkedIn and Email in Dark Mode */
+  --placeholder-color: #bcbcbc;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden; /* Strict no-scroll one-page layout */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 2rem;
+  transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+}
+
+/* Wider Constrained Container (~580px) */
+.portfolio-card {
+  max-width: 580px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Header: Name & Toggle aligned on par with bio edges */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 96%;
+  margin-top: 3rem;
+  margin-bottom: 0rem;
+}
+
+h1.name-title {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1.8rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  text-align: left;
+}
+
+/* Minimalist Theme Toggle */
+.theme-toggle {
+  background: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  color: var(--icon-color);
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+}
+
+.theme-toggle:hover {
+  opacity: 0.6;
+}
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Bio Section Styling */
+.bio {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.65;
+  text-align: justify;
+  color: var(--bio-text-color);
+  margin-top: 0rem;
+  margin-bottom: 2rem;
+  width: 96%;
+  transition: color var(--transition-speed) ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.bio p {
+  margin-bottom: 1rem;
+  font-weight: 400;
+}
+
+.bio p:last-child {
+  margin-bottom: 0;
+}
+
+/* Bold & Underlined Links */
+.bio-link {
+  color: var(--link-color);
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color var(--transition-speed) ease, opacity 0.2s ease;
+}
+
+.bio-link:hover {
+  opacity: 0.8;
+}
+
+/* Footer with Left-Aligned Underlined Text Links */
+footer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1.5rem;
+  width: 96%;
+  margin-bottom: 0.5rem;
+}
+
+.social-text-link {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: var(--footer-link-color);
+  text-decoration: underline;
+  transition: color var(--transition-speed) ease, opacity 0.2s ease;
+}
+
+.social-text-link:hover {
+  opacity: 0.6;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 600px) {
+  body {
+    padding: 1rem;
+  }
+
+  h1.name-title {
+    font-size: 1.7rem;
+  }
+
+  .bio {
+    font-size: 1.05rem;
+    margin-bottom: 1.8rem;
+  }
+
+  .image-placeholder svg {
+    width: 150px;
+    height: 150px;
+  }
+}
